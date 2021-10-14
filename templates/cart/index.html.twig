@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block main %}
+    {% include('_breadcrumbs.html.twig') with {'pages': [{'label': 'Accueil', 'link': path('home')}, {'label': 'Panier', 'last': true}]} %}
+    {% if rooms is empty %}
+        <h3 class="py-5 text-center">Panier vide</h3>
+    {% else %}
+        {% include('room/_display.html.twig') with {'show_add': false, 'show_cart_remove': true} %}
+    {% endif %}
+{% endblock %}

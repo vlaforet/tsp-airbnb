@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Régions{% endblock %}
+
+{% block main %}
+    {% include('_breadcrumbs.html.twig') with {'pages': [{'label': 'Accueil', 'link': path('home')}, {'label': 'Régions', 'last': true}]} %}
+
+    <section>
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                {% for region in regions %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <a class="seemless-click" href="{{ path('region_show', {'id': region.id}) }}">
+                                <img class="card-img-top cover-img" src="{{ vich_uploader_asset(region, 'imageFile') | default(asset('assets/default-region.jpg')) }}" alt="..." />
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <h5 class="fw-bolder">{{ region.name }} ({{ region.country }})</h5>
+                                    </div>
+                                </div>
+                                {% if is_granted('ROLE_USER') %}
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" href="{{ path('region_edit', {'id': region.id}) }}"><i class="bi bi-pen"></i> Modifier</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col mb-5">
+                    <div class="card h-100 justify-content-center">
+                        <a class="seemless-click" href="{{ path('region_new') }}">
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <i class="bi bi-plus-square" style="font-size: 75px;"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

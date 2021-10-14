@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Serveur{% endblock %}
+
+{% block main %}
+    {% include('_breadcrumbs.html.twig') with {'pages': [{'label': 'Accueil', 'link': path('home')}, {'label': 'Serveurs', 'link': path('room_index')}, {'label': 'Modifier ' ~ room.summary, 'last': true}]} %}
+    {{ include('room/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}

@@ -1,0 +1,50 @@
+    <section>
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                {% for room in rooms %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <a class="seemless-click" href="{{ path('room_show', {'id': room.id}) }}">
+                                <img class="card-img-top cover-img" src="{{ vich_uploader_asset(room, 'imageFile') | default(asset('assets/default-server.png')) }}" alt="..." />
+                                <div class="card-body p-4 pb-0">
+                                    <div class="text-center">
+                                        <h5 class="fw-bolder">{{ room.summary }}</h5>
+                                        {{ room.price }} €/TB/mois
+                                        <p>{{ room.capacity }} TB ({{ room.superficy }} MB/s)</p>
+                                    </div>
+                                </div>
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        {% if show_cart_remove is defined and show_cart_remove %}
+                                            <a class="btn btn-danger mt-auto" href="{{ path('cart_remove', {'id': room.id}) }}"><i class="bi bi-x-circle"></i> Retirer du panier</a>
+                                        {% else %}
+                                            {% if is_granted('ROLE_USER') %}
+                                                <a class="btn btn-outline-dark mt-auto mb-2" href="{{ path('room_edit', {'id': room.id}) }}"><i class="bi bi-pen"></i> Modifier</a>
+                                            {% endif %}
+                                            <a class="btn btn-success mt-auto" href="{{ path('cart_add', {'id': room.id}) }}"><i class="bi bi-cart"></i> Ajouter au panier</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% if show_add is not defined or show_add %}
+                <div class="col mb-5">
+                    <div class="card h-100 justify-content-center">
+                        <a class="seemless-click" href="{{ path('room_new') }}">
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <i class="bi bi-plus-square" style="font-size: 75px;"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </section>

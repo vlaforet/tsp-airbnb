@@ -1,0 +1,30 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        home:
+          label: 'Accueil'
+          route: 'home'
+        rooms:
+          label: 'Serveurs'
+          route: 'room_index'
+        regions:
+          label: 'Régions'
+          route: 'region_index'
+    account:
+      items:
+        logout:
+          label: 'Déconnexion'
+          route: 'app_logout'
+          roles: [ 'ROLE_USER' ]
+        cart:
+          label: 'Panier'
+          route: 'cart'
+    anonymous:
+      items:
+        login:
+          label: 'Connexion'
+          route: 'app_login'
+        cart:
+          label: 'Panier'
+          route: 'cart'

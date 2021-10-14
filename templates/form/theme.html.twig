@@ -1,0 +1,45 @@
+{% use 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block form_row %}
+    <div class="py-2">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block vich_image_widget %}
+    <div class="vich-image container px-0">
+        {%- if errors|length > 0 -%}
+            {%- set attr = attr|merge({class: (attr.class|default('') ~ ' is-invalid')|trim}) -%}
+        {%- endif -%}
+
+        <div class="row">
+            <div class="col-md-6">
+                {{- form_widget(form.file, {attr: attr}) -}}
+            </div>
+
+            <div class="col-md-6">
+                {%- if form.delete is defined -%}
+                    {{- form_row(form.delete) -}}
+                {%- endif -%}
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-md-12">
+                {%- if image_uri -%}
+                    <div class="col-md-4">
+                        <a href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" download>
+                            <img style="width:100%;" src="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" alt="" />
+                        </a>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+
+        {%- if download_uri -%}
+            <a href="{{ asset_helper is same as(true) ? asset(download_uri) : download_uri }}" download>
+                {{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}
+            </a>
+        {%- endif -%}
+    </div>
+{% endblock %}

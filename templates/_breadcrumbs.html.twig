@@ -1,0 +1,11 @@
+{% if pages is defined %}
+<nav class="mt-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        {% for page in pages %}
+            <li class="breadcrumb-item{% if page.last is defined and page.last %} active" aria-current="page" {% else %}"{% endif %}>
+                {% if page.link is defined %}<a href="{{ page.link }}">{{ page.label }}</a>{% else %}{{ page.label }}{% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+</nav>
+{% endif %}
