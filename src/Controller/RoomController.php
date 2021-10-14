@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/room")
@@ -30,7 +31,7 @@ class RoomController extends AbstractController
      * @Route("/new", name="room_new", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function new(Request $request): Response
+    public function new(UserInterface $user, Request $request): Response
     {
         $room = new Room();
         $form = $this->createForm(RoomType::class, $room);
@@ -38,6 +39,7 @@ class RoomController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $room->setUser($user);
             $entityManager->persist($room);
             $entityManager->flush();
 
